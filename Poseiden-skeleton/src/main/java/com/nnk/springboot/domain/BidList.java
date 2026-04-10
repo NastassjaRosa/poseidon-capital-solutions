@@ -3,6 +3,7 @@ package com.nnk.springboot.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 @Table(name = "bidlist")
@@ -22,8 +23,24 @@ public class BidList {
     private String type;
 
     @NotNull(message = "Bid quantity is mandatory")
+    @PositiveOrZero(message = "Bid quantity must be positive")
     @Column(name = "bidQuantity")
     private Double bidQuantity;
+
+    @NotNull(message = "Ask quantity is mandatory")
+    @PositiveOrZero(message = "Ask quantity must be positive")
+    @Column(name = "askQuantity")
+    private Double askQuantity;
+
+    @NotNull(message = "Bid is mandatory")
+    @PositiveOrZero(message = "Bid must be positive")
+    @Column(name = "bid")
+    private Double bid;
+
+    @NotNull(message = "Ask is mandatory")
+    @PositiveOrZero(message = "Ask must be positive")
+    @Column(name = "ask")
+    private Double ask;
 
     public BidList() {
     }

@@ -2,6 +2,7 @@ package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 
 @Entity
@@ -15,14 +16,17 @@ public class CurvePoint {
 
 
     @NotNull(message = "Curve id is mandatory")
+    @Positive(message = "Curve id must be positive")
     @Column(name = "CurveId")
     private Integer curveId;
 
     @NotNull(message = "Term is mandatory")
+    @Positive(message = "Term must be positive")
     @Column(name = "term")
     private Double term;
 
     @NotNull(message = "Value is mandatory")
+    @Positive(message = "Value must be positive")
     @Column(name = "value")
     private Double value;
 

@@ -3,6 +3,7 @@ package com.nnk.springboot.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "rating")
@@ -26,6 +27,7 @@ public class Rating {
     private String fitchRating;
 
     @NotNull(message = "Order number is mandatory")
+    @Positive(message = "Order number must be positive")
     @Column(name = "orderNumber")
     private Integer orderNumber;
 

@@ -3,6 +3,8 @@ package com.nnk.springboot.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 @Table(name = "trade")
@@ -22,6 +24,7 @@ public class Trade {
     private String type;
 
     @NotNull(message = "Buy quantity is mandatory")
+    @PositiveOrZero(message = "Buy quantity must be positive")
     @Column(name = "buyQuantity")
     private Double buyQuantity;
 

@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="header" class="mt-5 mb-5">
-    <div class="row mb-3">
-        <div class="col-6">
+    <div class="row mb-3" style="margin-left: -15px; margin-right: -15px;">
+        <div class="col-6" style="padding-left: 0;">
             <a href="/bidList/list">Bid List</a> |
             <a href="/curvePoint/list">Curve Points</a> |
             <a href="/rating/list">Ratings</a> |
@@ -15,7 +15,7 @@
                href="/user/list">Users</a>
         </div>
 
-        <div class="col-6 text-right">
+        <div class="col-6 text-right" style="padding-right: 0;">
             Logged in user: <b th:text="${#authentication.authorities.iterator().next().authority}"></b>
 
             <form th:action="@{/app-logout}"

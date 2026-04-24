@@ -19,6 +19,9 @@ class BidTests {
 	@Test
 	void bidListTest() {
 		BidList bid = new BidList("Account Test", "Type Test", 10d);
+		bid.setAskQuantity(5d);
+		bid.setBid(1d);
+		bid.setAsk(2d);
 
 		// Save
 		bid = bidListRepository.save(bid);

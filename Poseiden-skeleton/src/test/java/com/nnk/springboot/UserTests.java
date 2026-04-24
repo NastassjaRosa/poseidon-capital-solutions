@@ -2,41 +2,42 @@ package com.nnk.springboot;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.Optional;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserTests {
+class UserTests {
 
     @Autowired
     private UserRepository userRepository;
 
     @Test
-    public void userTest() {
-        User user = new User("userTest", "password", "User Test", "USER");
+    void userTest() {
+        // Le mot de passe respecte la contrainte : 8 car min, 1 maj, 1 chiffre, 1 symbole
+        User user = new User("userTest", "Test1234!", "User Test", "USER");
 
+        // Save
         user = userRepository.save(user);
-        Assert.assertNotNull(user.getId());
+        Assertions.assertNotNull(user.getId());
 
+        // Update
         user.setUsername("userUpdate");
         user = userRepository.save(user);
-        Assert.assertEquals("userUpdate", user.getUsername());
+        Assertions.assertEquals("userUpdate", user.getUsername());
 
+        // Find
         List<User> list = userRepository.findAll();
-        Assert.assertTrue(list.size() > 0);
+        Assertions.assertFalse(list.isEmpty());
 
+        // Delete
         Integer id = user.getId();
         userRepository.delete(user);
-
         Optional<User> deleted = userRepository.findById(id);
-        Assert.assertFalse(deleted.isPresent());
+        Assertions.assertFalse(deleted.isPresent());
     }
 }

@@ -10,7 +10,8 @@ class PasswordEncodeTest {
     @Test
     void testPassword() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String pw = encoder.encode("Test1234!");
-        System.out.println("[ " + pw + " ]");
+        System.out.println("Admin: " + encoder.encode("Admin123!"));
+        System.out.println("User:  " + encoder.encode("User123!"));
+        System.out.println("Test:  " + encoder.encode("Test123!"));
     }
 }

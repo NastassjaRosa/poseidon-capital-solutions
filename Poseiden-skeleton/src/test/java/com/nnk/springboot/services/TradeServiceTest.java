@@ -65,6 +65,19 @@ class TradeServiceTest {
     }
 
     @Test
+    void shouldThrowExceptionWhenTradeNotFound() {
+        when(tradeRepository.findById(99)).thenReturn(Optional.empty());
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> tradeService.findById(99)
+        );
+
+        assertEquals("Invalid trade Id:99", exception.getMessage());
+        verify(tradeRepository, times(1)).findById(99);
+    }
+
+    @Test
     void shouldDeleteTradeById() {
         doNothing().when(tradeRepository).deleteById(1);
 

@@ -65,6 +65,19 @@ class BidListServiceTest {
     }
 
     @Test
+    void shouldThrowExceptionWhenBidListNotFound() {
+        when(bidListRepository.findById(99)).thenReturn(Optional.empty());
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> bidListService.findById(99)
+        );
+
+        assertEquals("Invalid bidList Id:99", exception.getMessage());
+        verify(bidListRepository, times(1)).findById(99);
+    }
+
+    @Test
     void shouldDeleteBidListById() {
         doNothing().when(bidListRepository).deleteById(1);
 

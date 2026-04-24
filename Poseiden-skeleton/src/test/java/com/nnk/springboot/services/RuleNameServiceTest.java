@@ -65,6 +65,19 @@ class RuleNameServiceTest {
     }
 
     @Test
+    void shouldThrowExceptionWhenRuleNameNotFound() {
+        when(ruleNameRepository.findById(99)).thenReturn(Optional.empty());
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> ruleNameService.findById(99)
+        );
+
+        assertEquals("Invalid ruleName Id:99", exception.getMessage());
+        verify(ruleNameRepository, times(1)).findById(99);
+    }
+
+    @Test
     void shouldDeleteRuleNameById() {
         doNothing().when(ruleNameRepository).deleteById(1);
 

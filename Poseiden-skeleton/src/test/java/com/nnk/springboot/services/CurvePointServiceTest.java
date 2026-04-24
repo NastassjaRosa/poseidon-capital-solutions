@@ -65,6 +65,19 @@ class CurvePointServiceTest {
     }
 
     @Test
+    void shouldThrowExceptionWhenCurvePointNotFound() {
+        when(curvePointRepository.findById(99)).thenReturn(Optional.empty());
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> curvePointService.findById(99)
+        );
+
+        assertEquals("Invalid curvePoint Id:99", exception.getMessage());
+        verify(curvePointRepository, times(1)).findById(99);
+    }
+
+    @Test
     void shouldDeleteCurvePointById() {
         doNothing().when(curvePointRepository).deleteById(1);
 

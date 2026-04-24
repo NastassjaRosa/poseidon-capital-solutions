@@ -26,8 +26,8 @@ class UserServiceTest {
 
     @Test
     void shouldFindAllUsers() {
-        User user1 = new User("user1", "pass1", "User One", "USER");
-        User user2 = new User("user2", "pass2", "User Two", "ADMIN");
+        User user1 = new User("user1", "Pass1234!", "User One", "USER");
+        User user2 = new User("user2", "Pass1234!", "User Two", "ADMIN");
 
         when(userRepository.findAll()).thenReturn(Arrays.asList(user1, user2));
 
@@ -39,7 +39,7 @@ class UserServiceTest {
 
     @Test
     void shouldSaveUser() {
-        User user = new User("user1", "pass1", "User One", "USER");
+        User user = new User("user1", "Pass1234!", "User One", "USER");
 
         when(userRepository.save(user)).thenReturn(user);
 
@@ -52,7 +52,7 @@ class UserServiceTest {
 
     @Test
     void shouldFindUserById() {
-        User user = new User("user1", "pass1", "User One", "USER");
+        User user = new User("user1", "Pass1234!", "User One", "USER");
         user.setId(1);
 
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
@@ -62,6 +62,19 @@ class UserServiceTest {
         assertNotNull(result);
         assertEquals(1, result.getId());
         verify(userRepository, times(1)).findById(1);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserNotFound() {
+        when(userRepository.findById(99)).thenReturn(Optional.empty());
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> userService.findById(99)
+        );
+
+        assertEquals("Invalid user Id:99", exception.getMessage());
+        verify(userRepository, times(1)).findById(99);
     }
 
     @Test

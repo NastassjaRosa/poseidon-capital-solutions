@@ -65,6 +65,19 @@ class RatingServiceTest {
     }
 
     @Test
+    void shouldThrowExceptionWhenRatingNotFound() {
+        when(ratingRepository.findById(99)).thenReturn(Optional.empty());
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> ratingService.findById(99)
+        );
+
+        assertEquals("Invalid rating Id:99", exception.getMessage());
+        verify(ratingRepository, times(1)).findById(99);
+    }
+
+    @Test
     void shouldDeleteRatingById() {
         doNothing().when(ratingRepository).deleteById(1);
 
